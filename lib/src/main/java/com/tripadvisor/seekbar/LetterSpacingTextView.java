@@ -11,6 +11,7 @@ import static android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE;
 /**
  * Text view that allows changing the letter spacing of the text.
  * Source: http://stackoverflow.com/questions/1640659/how-to-adjust-text-kerning-in-android-textview/16429758#16429758
+ *
  * @author Pedro Barros (pedrobarros.dev at gmail.com)
  * @since May 7, 2013
  */
@@ -24,11 +25,11 @@ public class LetterSpacingTextView extends TextView {
         super(context);
     }
 
-    public LetterSpacingTextView(Context context, AttributeSet attrs){
+    public LetterSpacingTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public LetterSpacingTextView(Context context, AttributeSet attrs, int defStyle){
+    public LetterSpacingTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
@@ -54,16 +55,16 @@ public class LetterSpacingTextView extends TextView {
 
     private void applyLetterSpacing() {
         StringBuilder builder = new StringBuilder();
-        for(int i = 0; i < originalText.length(); i++) {
+        for (int i = 0; i < originalText.length(); i++) {
             builder.append(originalText.charAt(i));
-            if(i+1 < originalText.length()) {
+            if (i + 1 < originalText.length()) {
                 builder.append('\u00A0');
             }
         }
         SpannableString finalText = new SpannableString(builder.toString());
-        if(builder.toString().length() > 1) {
-            for(int i = 1; i < builder.toString().length(); i+=2) {
-                finalText.setSpan(new ScaleXSpan((letterSpacing + 1.0F)/10.0F), i, i+1, SPAN_EXCLUSIVE_EXCLUSIVE);
+        if (builder.toString().length() > 1) {
+            for (int i = 1; i < builder.toString().length(); i += 2) {
+                finalText.setSpan(new ScaleXSpan((letterSpacing + 1.0F) / 10.0F), i, i + 1, SPAN_EXCLUSIVE_EXCLUSIVE);
             }
         }
         super.setText(finalText, BufferType.SPANNABLE);

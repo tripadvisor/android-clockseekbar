@@ -24,14 +24,14 @@ public class RobotoTextView extends TextView {
         super(context, attrs, 0);
         this.mContext = context;
 
-        if(!isInEditMode()){
+        if (!isInEditMode()) {
             TypedArray attributesArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.RobotoTextView, 0, 0);
-            try{
+            try {
                 mFontType = values()[attributesArray.getInteger(R.styleable.RobotoTextView_fontType, 0)];
                 setFontType(mFontType);
                 // Note: This flag is required for proper typeface rendering
                 setPaintFlags(getPaintFlags() | Paint.SUBPIXEL_TEXT_FLAG);
-            }finally {
+            } finally {
                 attributesArray.recycle();
             }
         }
@@ -39,7 +39,7 @@ public class RobotoTextView extends TextView {
 
     public void setFontType(Utils.FontType fontType) {
         this.mFontType = fontType;
-        switch (mFontType){
+        switch (mFontType) {
             case LIGHT:
                 setTypeface(getRobotoTypeface(mContext, LIGHT));
                 return;

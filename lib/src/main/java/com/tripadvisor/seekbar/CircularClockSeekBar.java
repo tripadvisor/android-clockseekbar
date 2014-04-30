@@ -147,13 +147,16 @@ public final class CircularClockSeekBar extends View {
 
         mListener = new OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(CircularClockSeekBar seekBar, int progress, boolean fromUser) {}
+            public void onProgressChanged(CircularClockSeekBar seekBar, int progress, boolean fromUser) {
+            }
 
             @Override
-            public void onStartTrackingTouch(CircularClockSeekBar seekBar) {}
+            public void onStartTrackingTouch(CircularClockSeekBar seekBar) {
+            }
 
             @Override
-            public void onStopTrackingTouch(CircularClockSeekBar seekBar) {}
+            public void onStopTrackingTouch(CircularClockSeekBar seekBar) {
+            }
         };
 
         mCirclePaint = new Paint();
@@ -714,7 +717,7 @@ public final class CircularClockSeekBar extends View {
 
     public static int getDelta(int oldDegrees, int newDegrees) {
         if ((oldDegrees == TOTAL_DEGREES_INT && newDegrees == 0) || (newDegrees == TOTAL_DEGREES_INT && oldDegrees == 0)
-                || oldDegrees ==0 || newDegrees ==0) {
+                || oldDegrees == 0 || newDegrees == 0) {
             // dont worry about delta for this condition as this basically means they are same.
             // we have this granular values when user touches/scrolls
             return 0;

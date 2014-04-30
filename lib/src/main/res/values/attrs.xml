@@ -3,15 +3,15 @@
 
     <declare-styleable name="RobotoTextView">
         <attr name="fontType" format="enum">
-            <enum name="light" value="0"/>
-            <enum name="medium" value="1"/>
-            <enum name="regular" value="2"/>
-            <enum name="bold" value="3"/>
+            <enum name="light" value="0" />
+            <enum name="medium" value="1" />
+            <enum name="regular" value="2" />
+            <enum name="bold" value="3" />
         </attr>
     </declare-styleable>
 
     <declare-styleable name="CircularClockSeekBar">
-        <attr name="hand_hour" format="reference"/>
-        <attr name="hand_minute" format="reference"/>
+        <attr name="hand_hour" format="reference" />
+        <attr name="hand_minute" format="reference" />
     </declare-styleable>
 </resources>

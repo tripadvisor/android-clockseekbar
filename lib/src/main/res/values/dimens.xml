@@ -2,5 +2,4 @@
 <resources>
     <!-- Seekbar dimens -->
     <dimen name="seekbar_width">3dp</dimen>
-
 </resources>
