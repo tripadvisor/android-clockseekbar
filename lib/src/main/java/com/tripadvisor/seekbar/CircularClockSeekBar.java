@@ -296,7 +296,7 @@ public final class CircularClockSeekBar extends View {
             // as our angle never goes negative.
             mNewDegrees = mNewDegrees <= 0 ? TOTAL_DEGREES_INT + mNewDegrees : mNewDegrees;
             setAngle(mNewDegrees);
-            mDeltaProgress += calculateNewDelta(mOldDegrees, mNewDegrees);
+            mDeltaProgress += getDelta(mOldDegrees, mNewDegrees);
             mListener.onProgressChanged(CircularClockSeekBar.this, mProgress, mFromUser);
             invalidate();
             if (mDeltaProgress % 30 != 0) {
@@ -599,7 +599,7 @@ public final class CircularClockSeekBar extends View {
             int newDegrees = round(degrees);
             int oldDegrees = (int) mAngle;
             int newDelta;
-            if ((newDelta = calculateNewDelta(oldDegrees, newDegrees)) == 0) {
+            if ((newDelta = getDelta(oldDegrees, newDegrees)) == 0) {
                 // no need to invalidate or set new values nothing changed
                 return;
             }
@@ -690,7 +690,7 @@ public final class CircularClockSeekBar extends View {
         return direction == 1;
     }
 
-    public static int getCircularDistance(int oldValue, int newValue) {
+    public static int getDistanceTo(int oldValue, int newValue) {
         int totalDegrees = TOTAL_DEGREES_INT;
         boolean isClockWise = shouldMoveClockwise(oldValue, newValue);
         int dist = (newValue - oldValue) % totalDegrees;
@@ -712,14 +712,14 @@ public final class CircularClockSeekBar extends View {
         return dist;
     }
 
-    public static int calculateNewDelta(int oldDegrees, int newDegrees) {
+    public static int getDelta(int oldDegrees, int newDegrees) {
         if ((oldDegrees == TOTAL_DEGREES_INT && newDegrees == 0) || (newDegrees == TOTAL_DEGREES_INT && oldDegrees == 0)
                 || oldDegrees ==0 || newDegrees ==0) {
             // dont worry about delta for this condition as this basically means they are same.
             // we have this granular values when user touches/scrolls
             return 0;
         }
-        return getCircularDistance(oldDegrees, newDegrees);
+        return getDistanceTo(oldDegrees, newDegrees);
     }
 
 }

@@ -1,4 +1,21 @@
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.11'
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.9.+'
+    }
+}
+
 apply plugin: 'android-library'
+
+repositories {
+    mavenCentral()
+}
 
 android {
     compileSdkVersion 19

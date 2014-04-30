@@ -2,8 +2,8 @@ package com.tripadvisor.seekbar.tests.unit;
 
 import android.test.InstrumentationTestCase;
 
-import static com.tripadvisor.seekbar.CircularClockSeekBar.calculateNewDelta;
-import static com.tripadvisor.seekbar.CircularClockSeekBar.getCircularDistance;
+import static com.tripadvisor.seekbar.CircularClockSeekBar.getDelta;
+import static com.tripadvisor.seekbar.CircularClockSeekBar.getDistanceTo;
 import static com.tripadvisor.seekbar.CircularClockSeekBar.shouldMoveClockwise;
 import static org.fest.assertions.api.Assertions.assertThat;
 
@@ -30,41 +30,41 @@ public class CircularClockSeekBarTest extends InstrumentationTestCase {
     }
 
     public void testThatCircularDistanceReturnTheCorrectValues() throws Exception {
-        assertThat(getCircularDistance(80, 170)).isEqualTo(90);
-        assertThat(getCircularDistance(170, 80)).isEqualTo(-90);
-        assertThat(getCircularDistance(358, 3)).isEqualTo(5);
-        assertThat(getCircularDistance(3, 358)).isEqualTo(-5);
-        assertThat(getCircularDistance(160, 190)).isEqualTo(30);
-        assertThat(getCircularDistance(190, 160)).isEqualTo(-30);
-        assertThat(getCircularDistance(315, 45)).isEqualTo(90);
-        assertThat(getCircularDistance(45, 315)).isEqualTo(-90);
-        assertThat(getCircularDistance(89, 268)).isEqualTo(179);
-        assertThat(getCircularDistance(268, 89)).isEqualTo(-179);
-        assertThat(getCircularDistance(92, 271)).isEqualTo(179);
-        assertThat(getCircularDistance(271, 92)).isEqualTo(-179);
-        assertThat(getCircularDistance(3, 181)).isEqualTo(178);
-        assertThat(getCircularDistance(181, 3)).isEqualTo(-178);
+        assertThat(getDistanceTo(80, 170)).isEqualTo(90);
+        assertThat(getDistanceTo(170, 80)).isEqualTo(-90);
+        assertThat(getDistanceTo(358, 3)).isEqualTo(5);
+        assertThat(getDistanceTo(3, 358)).isEqualTo(-5);
+        assertThat(getDistanceTo(160, 190)).isEqualTo(30);
+        assertThat(getDistanceTo(190, 160)).isEqualTo(-30);
+        assertThat(getDistanceTo(315, 45)).isEqualTo(90);
+        assertThat(getDistanceTo(45, 315)).isEqualTo(-90);
+        assertThat(getDistanceTo(89, 268)).isEqualTo(179);
+        assertThat(getDistanceTo(268, 89)).isEqualTo(-179);
+        assertThat(getDistanceTo(92, 271)).isEqualTo(179);
+        assertThat(getDistanceTo(271, 92)).isEqualTo(-179);
+        assertThat(getDistanceTo(3, 181)).isEqualTo(178);
+        assertThat(getDistanceTo(181, 3)).isEqualTo(-178);
     }
 
     public void testThatCalculateNewDeltaReturnCorrectValues() throws Exception {
-        assertThat(calculateNewDelta(0, 49)).isEqualTo(0);
-        assertThat(calculateNewDelta(40, 0)).isEqualTo(0);
-        assertThat(calculateNewDelta(0, 1)).isEqualTo(0);
-        assertThat(calculateNewDelta(1, 0)).isEqualTo(0);
-        assertThat(calculateNewDelta(0, 99)).isEqualTo(0);
-        assertThat(calculateNewDelta(80, 170)).isEqualTo(90);
-        assertThat(calculateNewDelta(170, 80)).isEqualTo(-90);
-        assertThat(calculateNewDelta(358, 3)).isEqualTo(5);
-        assertThat(calculateNewDelta(3, 358)).isEqualTo(-5);
-        assertThat(calculateNewDelta(160, 190)).isEqualTo(30);
-        assertThat(calculateNewDelta(190, 160)).isEqualTo(-30);
-        assertThat(calculateNewDelta(315, 45)).isEqualTo(90);
-        assertThat(calculateNewDelta(45, 315)).isEqualTo(-90);
-        assertThat(calculateNewDelta(89, 268)).isEqualTo(179);
-        assertThat(calculateNewDelta(268, 89)).isEqualTo(-179);
-        assertThat(calculateNewDelta(92, 271)).isEqualTo(179);
-        assertThat(calculateNewDelta(271, 92)).isEqualTo(-179);
-        assertThat(calculateNewDelta(3, 181)).isEqualTo(178);
-        assertThat(calculateNewDelta(181, 3)).isEqualTo(-178);
+        assertThat(getDelta(0, 49)).isEqualTo(0);
+        assertThat(getDelta(40, 0)).isEqualTo(0);
+        assertThat(getDelta(0, 1)).isEqualTo(0);
+        assertThat(getDelta(1, 0)).isEqualTo(0);
+        assertThat(getDelta(0, 99)).isEqualTo(0);
+        assertThat(getDelta(80, 170)).isEqualTo(90);
+        assertThat(getDelta(170, 80)).isEqualTo(-90);
+        assertThat(getDelta(358, 3)).isEqualTo(5);
+        assertThat(getDelta(3, 358)).isEqualTo(-5);
+        assertThat(getDelta(160, 190)).isEqualTo(30);
+        assertThat(getDelta(190, 160)).isEqualTo(-30);
+        assertThat(getDelta(315, 45)).isEqualTo(90);
+        assertThat(getDelta(45, 315)).isEqualTo(-90);
+        assertThat(getDelta(89, 268)).isEqualTo(179);
+        assertThat(getDelta(268, 89)).isEqualTo(-179);
+        assertThat(getDelta(92, 271)).isEqualTo(179);
+        assertThat(getDelta(271, 92)).isEqualTo(-179);
+        assertThat(getDelta(3, 181)).isEqualTo(178);
+        assertThat(getDelta(181, 3)).isEqualTo(-178);
     }
 }
