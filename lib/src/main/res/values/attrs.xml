@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="RobotoTextView">
+        <attr name="fontType" format="enum">
+            <enum name="light" value="0"/>
+            <enum name="medium" value="1"/>
+            <enum name="regular" value="2"/>
+            <enum name="bold" value="3"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="CircularClockSeekBar">
+        <attr name="hand_hour" format="reference"/>
+        <attr name="hand_minute" format="reference"/>
+    </declare-styleable>
+</resources>

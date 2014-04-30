@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seekbar dimens -->
+    <dimen name="seekbar_width">3dp</dimen>
+
+</resources>
