@@ -3,6 +3,8 @@ package com.tripadvisor.seekbar.sample;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -13,6 +15,9 @@ import android.view.ViewGroup;
 import com.tripadvisor.seekbar.ClockView;
 
 import org.joda.time.DateTime;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends Activity {
 
@@ -71,6 +76,22 @@ public class MainActivity extends Activity {
                     Log.e("New Current Time :" , String.valueOf(currentTime));
                 }
             });
+
+            TimerTask timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            minDepartTime.setNewCurrentTime(new DateTime(2014, 4, 25, 10, 0));
+                        }
+                    });
+                }
+            };
+
+            Timer timer = new Timer();
+            timer.schedule(timerTask, 5000);
 
 
             return rootView;

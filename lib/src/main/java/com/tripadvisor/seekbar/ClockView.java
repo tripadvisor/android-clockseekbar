@@ -13,17 +13,18 @@ import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeFieldType;
 import org.joda.time.Interval;
+import org.joda.time.Minutes;
 
 import java.util.Locale;
 
+import static com.tripadvisor.seekbar.CircularClockSeekBar.ClockRangeStatus.DIFFERENT_DAY_OF_WEEK;
+import static com.tripadvisor.seekbar.CircularClockSeekBar.ClockRangeStatus.INVALID_RANGE;
+import static com.tripadvisor.seekbar.CircularClockSeekBar.ClockRangeStatus.VALID_RANGE;
 import static com.tripadvisor.seekbar.util.Utils.FontType.BOLD;
 import static com.tripadvisor.seekbar.util.Utils.FontType.REGULAR;
 import static com.tripadvisor.seekbar.util.Utils.SIMPLE_DATE_FORMAT_AM_PM;
 import static com.tripadvisor.seekbar.util.Utils.SIMPLE_DATE_FORMAT_HOURS;
 import static com.tripadvisor.seekbar.util.Utils.SIMPLE_DATE_FORMAT_MERIDIAN;
-import static com.tripadvisor.seekbar.CircularClockSeekBar.ClockRangeStatus.DIFFERENT_DAY_OF_WEEK;
-import static com.tripadvisor.seekbar.CircularClockSeekBar.ClockRangeStatus.INVALID_RANGE;
-import static com.tripadvisor.seekbar.CircularClockSeekBar.ClockRangeStatus.VALID_RANGE;
 
 public class ClockView extends LinearLayout {
 
@@ -32,7 +33,7 @@ public class ClockView extends LinearLayout {
     private final LetterSpacingTextView mTimeMeridianText;
     private final RobotoTextView mTimeWeekDayText;
     private final CircularClockSeekBar mCircularClockSeekBar;
-    private Interval mTimeInterval;
+    private Interval mValidTimeInterval;
     private DateTime mOriginalTime;
     private final boolean mIs24HourFormat;
     private DateTime mNewCurrentTime;
@@ -72,7 +73,7 @@ public class ClockView extends LinearLayout {
             @Override
             public void onStopTrackingTouch(CircularClockSeekBar seekBar) {
                 // snap to correct position
-                if (mTimeInterval.contains(mNewCurrentTime)) {
+                if (mValidTimeInterval.contains(mNewCurrentTime)) {
                     // snap to nearest hour.
                     int progressDelta = (int) (mCircularClockSeekBar.getAngle() % 30);
                     if (progressDelta != 0) {
@@ -93,8 +94,8 @@ public class ClockView extends LinearLayout {
 
             @Override
             public void onAnimationComplete(CircularClockSeekBar seekBar) {
-                if (mTimeInterval != null && mNewCurrentTime != null
-                        && mTimeInterval.contains(mNewCurrentTime)) {
+                if (mValidTimeInterval != null && mNewCurrentTime != null
+                        && mValidTimeInterval.contains(mNewCurrentTime)) {
                     mClockTimeUpdateListener.onClockTimeUpdate(ClockView.this, mNewCurrentTime);
                 }
             }
@@ -105,12 +106,21 @@ public class ClockView extends LinearLayout {
         public void onClockTimeUpdate(ClockView clockView, DateTime currentTime);
     }
 
+    public void setNewCurrentTime(DateTime newCurrentTime){
+        if (mValidTimeInterval != null && newCurrentTime != null
+                && mValidTimeInterval.contains(newCurrentTime)) {
+            int diffInMinutes = Minutes.minutesBetween(mCurrentValidTime, newCurrentTime).getMinutes();
+            mCircularClockSeekBar.moveToDelta(mCurrentValidProgressDelta, diffInMinutes/2);
+            setClockText(mCurrentValidTime);
+        }
+    }
+
     private void updateProgressWithDelta(int progressDelta) {
         // 1 deg = 2 min
         mNewCurrentTime = mOriginalTime.plusMinutes(progressDelta * 2);
         setClockText(mNewCurrentTime);
-        if (mTimeInterval != null && mNewCurrentTime != null
-                && mTimeInterval.contains(mNewCurrentTime)) {
+        if (mValidTimeInterval != null && mNewCurrentTime != null
+                && mValidTimeInterval.contains(mNewCurrentTime)) {
             mCurrentValidProgressDelta = progressDelta;
             mCurrentValidTime = mNewCurrentTime.minusMinutes(progressDelta * 2);
         }
@@ -128,8 +138,8 @@ public class ClockView extends LinearLayout {
     }
 
     private void setSeekBarStatus(DateTime newCurrentTime) {
-        if (mTimeInterval.contains(newCurrentTime)) {
-            if (newCurrentTime.getDayOfWeek() == mTimeInterval.getStart().getDayOfWeek()) {
+        if (mValidTimeInterval.contains(newCurrentTime)) {
+            if (newCurrentTime.getDayOfWeek() == mValidTimeInterval.getStart().getDayOfWeek()) {
                 mCircularClockSeekBar.setSeekBarStatus(VALID_RANGE);
                 mTimeWeekDayText.setVisibility(GONE);
             } else {
@@ -149,7 +159,7 @@ public class ClockView extends LinearLayout {
         // however we want
         // millisInstant >= thisStart && millisInstant <= thisEnd
         maxTime = maxTime.plusMillis(1);
-        mTimeInterval = new Interval(minTime, maxTime);
+        mValidTimeInterval = new Interval(minTime, maxTime);
         maxTime = maxTime.minusMillis(1);
         if (isMaxClock) {
             mOriginalTime = maxTime;

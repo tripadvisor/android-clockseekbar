@@ -219,26 +219,35 @@ public final class CircularClockSeekBar extends View {
             }
         }
         final int delta = abs(newDegree - oldDegree);
-        startAnimation(delta, oldDegree, newDegree);
+        startAnimation(delta, oldDegree, newDegree, true);
+    }
+
+    public void moveToDelta(int fromDelta, int toDelta) {
+        final int delta = abs(toDelta - fromDelta);
+        final int oldDegrees = round(mAngle);
+        final int newDegrees = round(mAngle + (toDelta - fromDelta));
+        startAnimation(delta, oldDegrees, newDegrees, false);
     }
 
     public void animateToDelta(int fromDelta, int toDelta) {
         final int delta = abs(toDelta - fromDelta);
         final int oldDegrees = round(mAngle);
         final int newDegrees = round(mAngle + (toDelta - fromDelta));
-        startAnimation(delta, oldDegrees, newDegrees);
+        startAnimation(delta, oldDegrees, newDegrees, true);
     }
 
-    private void startAnimation(final int delta, final int oldDegrees, final int newDegrees) {
+    private void startAnimation(final int delta, final int oldDegrees, final int newDegrees, final boolean animate) {
         mInterpolator = new DecelerateInterpolator();
         if (newDegrees - oldDegrees < 0) {
             // we are going anti-clock wise
-            mRotateAnimationTask = new RotateAnimationTask(newDegrees, oldDegrees) {
+            mRotateAnimationTask = new RotateAnimationTask(newDegrees, oldDegrees, animate) {
                 @Override
                 protected Void doInBackground(Void... params) {
                     for (int i = oldDegrees, j = 0; i >= newDegrees; i--, j++) {
                         try {
-                            animationSleep(j, mInterpolator, delta);
+                            if (animate) {
+                                animationSleep(j, mInterpolator, delta);
+                            }
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -250,12 +259,14 @@ public final class CircularClockSeekBar extends View {
             mRotateAnimationTask.execute();
         } else {
             // we are going clock wise
-            mRotateAnimationTask = new RotateAnimationTask(newDegrees, oldDegrees) {
+            mRotateAnimationTask = new RotateAnimationTask(newDegrees, oldDegrees, animate) {
                 @Override
                 protected Void doInBackground(Void... params) {
                     for (int i = oldDegrees, j = 0; i <= newDegrees; i++, j++) {
                         try {
-                            animationSleep(j, mInterpolator, delta);
+                            if (animate) {
+                                animationSleep(j, mInterpolator, delta);
+                            }
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -282,10 +293,12 @@ public final class CircularClockSeekBar extends View {
 
         private int mNewDegrees;
         private int mOldDegrees;
+        private boolean mAnimate;
 
-        public RotateAnimationTask(int newDegrees, int oldDegrees) {
+        public RotateAnimationTask(int newDegrees, int oldDegrees, boolean animate) {
             mNewDegrees = newDegrees;
             mOldDegrees = oldDegrees;
+            mAnimate = animate;
         }
 
         @Override
@@ -305,13 +318,16 @@ public final class CircularClockSeekBar extends View {
             setAngle(mNewDegrees);
             mDeltaProgress += getDelta(mOldDegrees, mNewDegrees);
             mListener.onProgressChanged(CircularClockSeekBar.this, mProgress, mFromUser);
-            invalidate();
             boolean isRoundingRequired = mDeltaProgress % 30 != 0;
             if (isRoundingRequired) {
                 roundToNearestDegree(30);
             } else {
                 mListener.onAnimationComplete(CircularClockSeekBar.this);
             }
+            if (!mAnimate){
+                mIsProgressSetViaApi = true;
+            }
+            invalidate();
         }
     }
 
