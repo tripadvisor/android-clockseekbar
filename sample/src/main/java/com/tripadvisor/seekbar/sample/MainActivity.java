@@ -67,7 +67,7 @@ public class MainActivity extends Activity {
 
             minDepartTime.setClockTimeUpdateListener(new ClockView.ClockTimeUpdateListener() {
                 @Override
-                public void onClockTimeUpdate(DateTime currentTime) {
+                public void onClockTimeUpdate(ClockView clockView, DateTime currentTime) {
                     Log.e("New Current Time :" , String.valueOf(currentTime));
                 }
             });

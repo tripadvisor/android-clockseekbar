@@ -44,7 +44,7 @@ public class ClockView extends LinearLayout {
         super(context, attrs);
         mClockTimeUpdateListener = new ClockTimeUpdateListener() {
             @Override
-            public void onClockTimeUpdate(DateTime currentTime) {
+            public void onClockTimeUpdate(ClockView clockView, DateTime currentTime) {
             }
         };
         mIs24HourFormat = DateFormat.is24HourFormat(context);
@@ -90,14 +90,14 @@ public class ClockView extends LinearLayout {
             public void onAnimationComplete(CircularClockSeekBar seekBar) {
                 if (mTimeInterval != null && mNewCurrentTime != null
                         && mTimeInterval.contains(mNewCurrentTime)) {
-                    mClockTimeUpdateListener.onClockTimeUpdate(mNewCurrentTime);
+                    mClockTimeUpdateListener.onClockTimeUpdate(ClockView.this, mNewCurrentTime);
                 }
             }
         });
     }
 
     public interface ClockTimeUpdateListener{
-        public void onClockTimeUpdate(DateTime currentTime);
+        public void onClockTimeUpdate(ClockView clockView, DateTime currentTime);
     }
 
     private void updateProgressWithDelta(int progressDelta) {
