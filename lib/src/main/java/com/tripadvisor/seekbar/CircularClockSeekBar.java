@@ -635,6 +635,10 @@ public final class CircularClockSeekBar extends View {
         return mMaxProgress;
     }
 
+    public void setMaxProgress(int maxProgress) {
+        mMaxProgress = maxProgress;
+    }
+
     public int getProgressPercent() {
         return mProgressPercent;
     }
@@ -687,6 +691,12 @@ public final class CircularClockSeekBar extends View {
          */
         void onStopTrackingTouch(CircularClockSeekBar seekBar);
 
+        /**
+         * Notification that all the animations in this seekbar are finished. Clients may use this to trigger
+         * future events within their code.
+         *
+         * @param seekBar The CircularClockSeekBar for which animations are complete.
+         */
         void onAnimationComplete(CircularClockSeekBar seekBar);
     }
 
