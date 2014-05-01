@@ -14,24 +14,23 @@ Usage
 Include `ClockView` in your layout XML.
 
 ```xml
-
     <com.tripadvisor.seekbar.ClockView
         android:id="@+id/calendar_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
 ```
+
 
 or
 
-```xml
 
+```xml
     <com.tripadvisor.seekbar.CircularClockSeekBar
         android:id="@+id/clock_seek_bar_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
 ```
+
 
 This is a fairly large control so it is wise to give it ample space in your layout. On small
 devices it is recommended to use a dialog, full-screen fragment, or dedicated activity. On larger
@@ -42,23 +41,22 @@ If using `ClockView` , Then in `onCreate` of your activity/dialog or the `onCrea
 view with a range of valid dates.
 
 ```java
-
     final ClockView minDepartTime = (ClockView) rootView.findViewById(R.id.min_depart_time_clock_view);
     DateTime minTime = new DateTime(2014, 4, 25, 7, 0);
     DateTime maxTime = new DateTime(2014, 4, 26, 4, 0);
     minDepartTime.setBounds(minTime, maxTime, false);
-
 ```
+
+
 The `ClockView` does not allow the user to exceed the date ranges. It animates the hands back if user scrolls beyond the valid time range.
 
 
 If using `CircularClockSeekBar`, Then in `onCreate` of your activity/dialog or the `onCreateView` of your fragment, You don't
 have to initialize it with anything. The max progress value is defaults to 120 this can be changed as per requirement.
 
-There is a `OnSeekBarChangeListener` that has callbacks for various events.
+User can add `OnSeekBarChangeListener` that has callbacks for various events.
 
 ```java
-
     /**
      * A callback that notifies clients when the progress level has been
      * changed. This includes changes that were initiated by the user through a
@@ -101,8 +99,8 @@ There is a `OnSeekBarChangeListener` that has callbacks for various events.
          */
         void onAnimationComplete(CircularClockSeekBar seekBar);
     }
-
 ```
+
 
 Source: http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/1.6_r2/android/widget/AnalogClock.java
 and https://github.com/RaghavSood/AndroidCircularSeekBar
