@@ -78,6 +78,11 @@ public class ClockView extends LinearLayout {
                     if (progressDelta != 0) {
                         // snap either to previous/next hour
                         mCircularClockSeekBar.roundToNearestDegree(30);
+                    } else {
+                        // we are trigering onClockTimeUpdate because the user was perfect and moved the
+                        // clock by exact multiple of 30 degrees so there is no animation and the time is still
+                        // within valid time interval
+                        mClockTimeUpdateListener.onClockTimeUpdate(ClockView.this, mNewCurrentTime);
                     }
                 } else {
                     // slide-animate back or forward
