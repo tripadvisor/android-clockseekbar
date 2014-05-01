@@ -3,7 +3,9 @@ package com.tripadvisor.seekbar.util;
 import android.content.Context;
 import android.graphics.Typeface;
 
-import java.text.SimpleDateFormat;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -12,9 +14,9 @@ import java.util.Map;
  */
 public class Utils {
 
-    public static final SimpleDateFormat SIMPLE_DATE_FORMAT_AM_PM = new SimpleDateFormat("h");
-    public static final SimpleDateFormat SIMPLE_DATE_FORMAT_MERIDIAN = new SimpleDateFormat("a");
-    public static final SimpleDateFormat SIMPLE_DATE_FORMAT_HOURS = new SimpleDateFormat("H");
+    public static final DateTimeFormatter SIMPLE_DATE_FORMAT_AM_PM = DateTimeFormat.forPattern("h");
+    public static final DateTimeFormatter SIMPLE_DATE_FORMAT_MERIDIAN = DateTimeFormat.forPattern("a");
+    public static final DateTimeFormatter SIMPLE_DATE_FORMAT_HOURS = DateTimeFormat.forPattern("H");
 
     @SuppressWarnings("PublicInnerClass")
     public enum FontType {

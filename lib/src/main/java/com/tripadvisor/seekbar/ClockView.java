@@ -118,11 +118,11 @@ public class ClockView extends LinearLayout {
 
     private void setClockText(DateTime newCurrentTime) {
         if (mIs24HourFormat) {
-            mTimeText.setText(SIMPLE_DATE_FORMAT_HOURS.format(newCurrentTime.toDate()));
+            mTimeText.setText(SIMPLE_DATE_FORMAT_HOURS.print(newCurrentTime));
             mTimeMeridianText.setText(R.string.hrs);
         } else {
-            mTimeText.setText(SIMPLE_DATE_FORMAT_AM_PM.format(newCurrentTime.toDate()));
-            mTimeMeridianText.setText(SIMPLE_DATE_FORMAT_MERIDIAN.format(newCurrentTime.toDate()).toLowerCase(Locale.US));
+            mTimeText.setText(SIMPLE_DATE_FORMAT_AM_PM.print(newCurrentTime));
+            mTimeMeridianText.setText(SIMPLE_DATE_FORMAT_MERIDIAN.print(newCurrentTime).toLowerCase(Locale.US));
         }
         setSeekBarStatus(newCurrentTime);
     }
