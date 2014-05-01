@@ -38,9 +38,15 @@ public class ClockView extends LinearLayout {
     private DateTime mNewCurrentTime;
     private int mCurrentValidProgressDelta;
     private DateTime mCurrentValidTime;
+    private ClockTimeUpdateListener mClockTimeUpdateListener;
 
     public ClockView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mClockTimeUpdateListener = new ClockTimeUpdateListener() {
+            @Override
+            public void onClockTimeUpdate(DateTime currentTime) {
+            }
+        };
         mIs24HourFormat = DateFormat.is24HourFormat(context);
         final View view = LayoutInflater.from(context).inflate(R.layout.clock_view, this);
         mTimeText = (LetterSpacingTextView) view.findViewById(R.id.time_text_view);
@@ -79,7 +85,19 @@ public class ClockView extends LinearLayout {
                     setClockText(mCurrentValidTime);
                 }
             }
+
+            @Override
+            public void onAnimationComplete(CircularClockSeekBar seekBar) {
+                if (mTimeInterval != null && mNewCurrentTime != null
+                        && mTimeInterval.contains(mNewCurrentTime)) {
+                    mClockTimeUpdateListener.onClockTimeUpdate(mNewCurrentTime);
+                }
+            }
         });
+    }
+
+    public interface ClockTimeUpdateListener{
+        public void onClockTimeUpdate(DateTime currentTime);
     }
 
     private void updateProgressWithDelta(int progressDelta) {
@@ -147,5 +165,9 @@ public class ClockView extends LinearLayout {
     @Override
     public CharSequence getContentDescription() {
         return String.format("%s%s", mTimeText.getText(), mTimeMeridianText.getText());
+    }
+
+    public void setClockTimeUpdateListener(ClockTimeUpdateListener clockTimeUpdateListener) {
+        mClockTimeUpdateListener = clockTimeUpdateListener;
     }
 }

@@ -3,6 +3,7 @@ package com.tripadvisor.seekbar.sample;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,10 +41,7 @@ public class MainActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
     /**
@@ -66,6 +64,15 @@ public class MainActivity extends Activity {
 
             final ClockView maxDepartTime = (ClockView) rootView.findViewById(R.id.max_depart_time_clock_view);
             maxDepartTime.setBounds(minTime, maxTime, true);
+
+            minDepartTime.setClockTimeUpdateListener(new ClockView.ClockTimeUpdateListener() {
+                @Override
+                public void onClockTimeUpdate(DateTime currentTime) {
+                    Log.e("New Current Time :" , String.valueOf(currentTime));
+                }
+            });
+
+
             return rootView;
         }
     }

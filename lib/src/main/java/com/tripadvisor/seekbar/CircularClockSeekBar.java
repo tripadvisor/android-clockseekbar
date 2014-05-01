@@ -157,6 +157,10 @@ public final class CircularClockSeekBar extends View {
             @Override
             public void onStopTrackingTouch(CircularClockSeekBar seekBar) {
             }
+
+            @Override
+            public void onAnimationComplete(CircularClockSeekBar seekBar) {
+            }
         };
 
         mCirclePaint = new Paint();
@@ -302,8 +306,11 @@ public final class CircularClockSeekBar extends View {
             mDeltaProgress += getDelta(mOldDegrees, mNewDegrees);
             mListener.onProgressChanged(CircularClockSeekBar.this, mProgress, mFromUser);
             invalidate();
-            if (mDeltaProgress % 30 != 0) {
+            boolean isRoundingRequired = mDeltaProgress % 30 != 0;
+            if (isRoundingRequired) {
                 roundToNearestDegree(30);
+            } else {
+                mListener.onAnimationComplete(CircularClockSeekBar.this);
             }
         }
     }
@@ -679,6 +686,8 @@ public final class CircularClockSeekBar extends View {
          * @param seekBar The CircularClockSeekBar in which the touch gesture began
          */
         void onStopTrackingTouch(CircularClockSeekBar seekBar);
+
+        void onAnimationComplete(CircularClockSeekBar seekBar);
     }
 
     public void setSeekBarChangeListener(OnSeekBarChangeListener listener) {
@@ -724,5 +733,4 @@ public final class CircularClockSeekBar extends View {
         }
         return getDistanceTo(oldDegrees, newDegrees);
     }
-
 }
