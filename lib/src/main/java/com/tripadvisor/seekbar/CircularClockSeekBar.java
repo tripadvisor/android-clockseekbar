@@ -453,9 +453,6 @@ public final class CircularClockSeekBar extends View {
         canvas.drawCircle(mCircleCenterX, mCircleCenterY, mOuterRadius, mCirclePaint);
         drawMarkerAtProgress(canvas);
 
-        if (mIsProgressSetViaApi) {
-            mAngle = mProgress * 360.0f / mMaxProgress;
-        }
         canvas.rotate(mProgress * 360.0f / mMaxProgress, x, y);
         final Drawable hourHand = mHourHand;
         if (changed) {
@@ -558,6 +555,9 @@ public final class CircularClockSeekBar extends View {
                 int newAngle = (newPercent / mMaxProgress) * TOTAL_DEGREES_INT;
                 this.setAngle(newAngle);
                 mProgressPercent = newPercent;
+            }
+            if (mIsProgressSetViaApi) {
+                mAngle = mProgress * 360.0f / mMaxProgress;
             }
             mListener.onProgressChanged(this, mProgress, mFromUser);
             mFromUser = false;

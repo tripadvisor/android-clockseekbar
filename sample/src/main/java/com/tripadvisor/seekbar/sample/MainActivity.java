@@ -66,6 +66,7 @@ public class MainActivity extends Activity {
             DateTime minTime = new DateTime(2014, 4, 25, 7, 0);
             DateTime maxTime = new DateTime(2014, 4, 26, 4, 0);
             minDepartTime.setBounds(minTime, maxTime, false);
+            minDepartTime.setNewCurrentTime(new DateTime(2014, 4, 25, 10, 0));
 
             final ClockView maxDepartTime = (ClockView) rootView.findViewById(R.id.max_depart_time_clock_view);
             maxDepartTime.setBounds(minTime, maxTime, true);
@@ -84,7 +85,7 @@ public class MainActivity extends Activity {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            minDepartTime.setNewCurrentTime(new DateTime(2014, 4, 25, 10, 0));
+                            minDepartTime.setNewCurrentTime(new DateTime(2014, 4, 25, 12, 0));
                         }
                     });
                 }
