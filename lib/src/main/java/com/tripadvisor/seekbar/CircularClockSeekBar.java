@@ -758,11 +758,23 @@ public final class CircularClockSeekBar extends View {
 
     public static int getDelta(int oldDegrees, int newDegrees) {
         if ((oldDegrees == TOTAL_DEGREES_INT && newDegrees == 0) || (newDegrees == TOTAL_DEGREES_INT && oldDegrees == 0)
-                || oldDegrees == 0 || newDegrees == 0) {
+                || (oldDegrees == 0 && newDegrees == 0) ) {
             // dont worry about delta for this condition as this basically means they are same.
             // we have this granular values when user touches/scrolls
             return 0;
         }
         return getDistanceTo(oldDegrees, newDegrees);
+    }
+
+    public void reset(){
+        mDeltaProgress = 0;
+        mAngle = 0;
+        mProgress = 0;
+        mIsProgressSetViaApi = true;
+        if (mRotateAnimationTask!=null) {
+            mRotateAnimationTask.cancel(true);
+            mRotateAnimationTask = null;
+        }
+        invalidate();
     }
 }

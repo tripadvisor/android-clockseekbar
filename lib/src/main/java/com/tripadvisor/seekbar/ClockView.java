@@ -161,6 +161,7 @@ public class ClockView extends LinearLayout {
         maxTime = maxTime.plusMillis(1);
         mValidTimeInterval = new Interval(minTime, maxTime);
         maxTime = maxTime.minusMillis(1);
+        mCircularClockSeekBar.reset();
         if (isMaxClock) {
             mOriginalTime = maxTime;
             mCurrentValidTime = maxTime;

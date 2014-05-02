@@ -63,8 +63,8 @@ public class MainActivity extends Activity {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
             final ClockView minDepartTime = (ClockView) rootView.findViewById(R.id.min_depart_time_clock_view);
-            DateTime minTime = new DateTime(2014, 4, 25, 7, 0);
-            DateTime maxTime = new DateTime(2014, 4, 26, 0, 0);
+            final DateTime minTime = new DateTime(2014, 4, 25, 7, 0);
+            final DateTime maxTime = new DateTime(2014, 4, 26, 0, 0);
             minDepartTime.setBounds(minTime, maxTime, false);
             minDepartTime.setNewCurrentTime(new DateTime(2014, 4, 25, 10, 0));
 
@@ -115,6 +115,22 @@ public class MainActivity extends Activity {
                     Log.e("Max -> New Current Time :" , String.valueOf(currentTime));
                 }
             });
+
+            timer = new Timer();
+            timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            minDepartTime.setBounds(minTime, maxTime, false);
+                            maxDepartTime.setBounds(minTime, maxTime, true);
+                        }
+                    });
+                }
+            };
+            timer.schedule(timerTask, 9000);
 
             return rootView;
         }
