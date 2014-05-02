@@ -68,16 +68,14 @@ public class MainActivity extends Activity {
             minDepartTime.setBounds(minTime, maxTime, false);
             minDepartTime.setNewCurrentTime(new DateTime(2014, 4, 25, 10, 0));
 
-            final ClockView maxDepartTime = (ClockView) rootView.findViewById(R.id.max_depart_time_clock_view);
-            maxDepartTime.setBounds(minTime, maxTime, true);
-
             minDepartTime.setClockTimeUpdateListener(new ClockView.ClockTimeUpdateListener() {
                 @Override
                 public void onClockTimeUpdate(ClockView clockView, DateTime currentTime) {
-                    Log.e("New Current Time :" , String.valueOf(currentTime));
+                    Log.e("Min -> New Current Time :" , String.valueOf(currentTime));
                 }
             });
 
+            Timer timer = new Timer();
             TimerTask timerTask = new TimerTask() {
                 @Override
                 public void run() {
@@ -85,15 +83,38 @@ public class MainActivity extends Activity {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            minDepartTime.setNewCurrentTime(new DateTime(2014, 4, 25, 12, 0));
+                            minDepartTime.setNewCurrentTime(new DateTime(2014, 4, 26, 0, 0));
                         }
                     });
                 }
             };
-
-            Timer timer = new Timer();
             timer.schedule(timerTask, 5000);
 
+            final ClockView maxDepartTime = (ClockView) rootView.findViewById(R.id.max_depart_time_clock_view);
+            maxDepartTime.setBounds(minTime, maxTime, true);
+            maxDepartTime.setNewCurrentTime(new DateTime(2014, 4, 26, 0, 0));
+
+            timer = new Timer();
+            timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            maxDepartTime.setNewCurrentTime(new DateTime(2014, 4, 25, 16, 0));
+                        }
+                    });
+                }
+            };
+            timer.schedule(timerTask, 7000);
+
+            maxDepartTime.setClockTimeUpdateListener(new ClockView.ClockTimeUpdateListener() {
+                @Override
+                public void onClockTimeUpdate(ClockView clockView, DateTime currentTime) {
+                    Log.e("Max -> New Current Time :" , String.valueOf(currentTime));
+                }
+            });
 
             return rootView;
         }

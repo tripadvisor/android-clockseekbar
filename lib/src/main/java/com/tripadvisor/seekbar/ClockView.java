@@ -109,7 +109,7 @@ public class ClockView extends LinearLayout {
     public void setNewCurrentTime(DateTime newCurrentTime){
         if (mValidTimeInterval != null && newCurrentTime != null
                 && mValidTimeInterval.contains(newCurrentTime)) {
-            int diffInMinutes = Minutes.minutesBetween(mCurrentValidTime, newCurrentTime).getMinutes();
+            int diffInMinutes = Minutes.minutesBetween(mNewCurrentTime, newCurrentTime).getMinutes();
             mCircularClockSeekBar.moveToDelta(mCurrentValidProgressDelta, diffInMinutes/2);
             setClockText(mCurrentValidTime);
         }

@@ -219,28 +219,30 @@ public final class CircularClockSeekBar extends View {
             }
         }
         final int delta = abs(newDegree - oldDegree);
-        startAnimation(delta, oldDegree, newDegree, true);
+        startAnimation(delta, oldDegree, newDegree, true, false);
     }
 
     public void moveToDelta(int fromDelta, int toDelta) {
         final int delta = abs(toDelta - fromDelta);
         final int oldDegrees = round(mAngle);
-        final int newDegrees = round(mAngle + (toDelta - fromDelta));
-        startAnimation(delta, oldDegrees, newDegrees, false);
+//        final int newDegrees = round(mAngle + (toDelta - fromDelta));
+        final int newDegrees = (int) ((mAngle + toDelta) % 360);
+        mDeltaProgress += toDelta;
+        startAnimation(delta, oldDegrees, newDegrees, false, true);
     }
 
     public void animateToDelta(int fromDelta, int toDelta) {
         final int delta = abs(toDelta - fromDelta);
         final int oldDegrees = round(mAngle);
         final int newDegrees = round(mAngle + (toDelta - fromDelta));
-        startAnimation(delta, oldDegrees, newDegrees, true);
+        startAnimation(delta, oldDegrees, newDegrees, true, false);
     }
 
-    private void startAnimation(final int delta, final int oldDegrees, final int newDegrees, final boolean animate) {
+    private void startAnimation(final int delta, final int oldDegrees, final int newDegrees, final boolean animate, boolean isDeltaPreComputed) {
         mInterpolator = new DecelerateInterpolator();
         if (newDegrees - oldDegrees < 0) {
             // we are going anti-clock wise
-            mRotateAnimationTask = new RotateAnimationTask(newDegrees, oldDegrees, animate) {
+            mRotateAnimationTask = new RotateAnimationTask(newDegrees, oldDegrees, animate, isDeltaPreComputed) {
                 @Override
                 protected Void doInBackground(Void... params) {
                     for (int i = oldDegrees, j = 0; i >= newDegrees; i--, j++) {
@@ -259,7 +261,7 @@ public final class CircularClockSeekBar extends View {
             mRotateAnimationTask.execute();
         } else {
             // we are going clock wise
-            mRotateAnimationTask = new RotateAnimationTask(newDegrees, oldDegrees, animate) {
+            mRotateAnimationTask = new RotateAnimationTask(newDegrees, oldDegrees, animate, isDeltaPreComputed) {
                 @Override
                 protected Void doInBackground(Void... params) {
                     for (int i = oldDegrees, j = 0; i <= newDegrees; i++, j++) {
@@ -294,11 +296,13 @@ public final class CircularClockSeekBar extends View {
         private int mNewDegrees;
         private int mOldDegrees;
         private boolean mAnimate;
+        private boolean mIsDeltaPreComputed;
 
-        public RotateAnimationTask(int newDegrees, int oldDegrees, boolean animate) {
+        public RotateAnimationTask(int newDegrees, int oldDegrees, boolean animate, boolean isDeltaPreComputed) {
             mNewDegrees = newDegrees;
             mOldDegrees = oldDegrees;
             mAnimate = animate;
+            mIsDeltaPreComputed = isDeltaPreComputed;
         }
 
         @Override
@@ -316,7 +320,9 @@ public final class CircularClockSeekBar extends View {
             // as our angle never goes negative.
             mNewDegrees = mNewDegrees <= 0 ? TOTAL_DEGREES_INT + mNewDegrees : mNewDegrees;
             setAngle(mNewDegrees);
-            mDeltaProgress += getDelta(mOldDegrees, mNewDegrees);
+            if (!mIsDeltaPreComputed) {
+                mDeltaProgress += getDelta(mOldDegrees, mNewDegrees);
+            }
             mListener.onProgressChanged(CircularClockSeekBar.this, mProgress, mFromUser);
             boolean isRoundingRequired = mDeltaProgress % 30 != 0;
             if (isRoundingRequired) {
