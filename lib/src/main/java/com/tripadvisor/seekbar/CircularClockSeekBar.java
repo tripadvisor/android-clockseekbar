@@ -565,9 +565,9 @@ public final class CircularClockSeekBar extends View {
             if (mIsProgressSetViaApi) {
                 mAngle = mProgress * 360.0f / mMaxProgress;
             }
-            mListener.onProgressChanged(this, mProgress, mFromUser);
-            mFromUser = false;
         }
+        mListener.onProgressChanged(this, mProgress, mFromUser);
+        mFromUser = false;
     }
 
     @Override
