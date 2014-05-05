@@ -103,7 +103,7 @@ public final class CircularClockSeekBar extends View {
      * both sides of the progress bar, allowing touch events to be processed
      * more user friendlily (yes, I know that's not a word)
      */
-    private float mAdjustmentFactor = 100.0f;
+    private float mAdjustmentFactor = 40.0f;
 
     /**
      * The flag to see if the setProgress() method was called from our own

@@ -186,4 +186,14 @@ public class ClockView extends LinearLayout {
     public void setClockTimeUpdateListener(ClockTimeUpdateListener clockTimeUpdateListener) {
         mClockTimeUpdateListener = clockTimeUpdateListener;
     }
+
+    public void removeClockTimeUpdateListener(ClockTimeUpdateListener clockTimeUpdateListener){
+        if (mClockTimeUpdateListener.equals(clockTimeUpdateListener)){
+            mClockTimeUpdateListener = new ClockTimeUpdateListener() {
+                @Override
+                public void onClockTimeUpdate(ClockView clockView, DateTime currentTime) {
+                }
+            };
+        }
+    }
 }
