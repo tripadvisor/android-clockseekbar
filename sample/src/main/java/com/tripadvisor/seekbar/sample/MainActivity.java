@@ -2,6 +2,7 @@ package com.tripadvisor.seekbar.sample;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -46,6 +47,9 @@ public class MainActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            startActivity(new Intent(this, SecondActivity.class));
+        }
         return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
@@ -67,6 +71,22 @@ public class MainActivity extends Activity {
             final DateTime maxTime = new DateTime(2014, 4, 26, 0, 0);
             minDepartTime.setBounds(minTime, maxTime, false);
             minDepartTime.setNewCurrentTime(new DateTime(2014, 4, 25, 10, 0));
+
+            final ClockView minArriveTime = (ClockView) rootView.findViewById(R.id.min_arrive_time_clock_view);
+            minArriveTime.setBounds(minTime, maxTime, false);
+            minArriveTime.setNewCurrentTime(new DateTime(2014, 4, 25, 10, 0));
+
+            final ClockView maxArriveTime = (ClockView) rootView.findViewById(R.id.max_arrive_time_clock_view);
+            maxArriveTime.setBounds(minTime, maxTime, false);
+            maxArriveTime.setNewCurrentTime(new DateTime(2014, 4, 25, 10, 0));
+
+            final ClockView minRandomTime = (ClockView) rootView.findViewById(R.id.min_random_time_clock_view);
+            minRandomTime.setBounds(minTime, maxTime, false);
+            minRandomTime.setNewCurrentTime(new DateTime(2014, 4, 25, 10, 0));
+
+            final ClockView maxRandomTime = (ClockView) rootView.findViewById(R.id.max_random_time_clock_view);
+            maxRandomTime.setBounds(minTime, maxTime, false);
+            maxRandomTime.setNewCurrentTime(new DateTime(2014, 4, 25, 10, 0));
 
             minDepartTime.setClockTimeUpdateListener(new ClockView.ClockTimeUpdateListener() {
                 @Override
@@ -92,7 +112,6 @@ public class MainActivity extends Activity {
 
             final ClockView maxDepartTime = (ClockView) rootView.findViewById(R.id.max_depart_time_clock_view);
             maxDepartTime.setBounds(minTime, maxTime, true);
-//            maxDepartTime.setNewCurrentTime(new DateTime(2014, 4, 26, 0, 0));
 
             timer = new Timer();
             timerTask = new TimerTask() {

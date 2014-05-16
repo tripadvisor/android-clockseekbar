@@ -579,18 +579,15 @@ public final class CircularClockSeekBar extends View {
         float y = event.getY();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                moved(x, y, false);
-                break;
+                return moved(x, y, false);
             case MotionEvent.ACTION_MOVE:
                 mListener.onStartTrackingTouch(this);
-                moved(x, y, false);
-                break;
+                return moved(x, y, false);
             case MotionEvent.ACTION_UP:
                 mListener.onStopTrackingTouch(this);
-                moved(x, y, true);
-                break;
+                return moved(x, y, true);
         }
-        return true;
+        return false;
     }
 
     /**
@@ -614,7 +611,7 @@ public final class CircularClockSeekBar extends View {
      * @param y  the y
      * @param up the up
      */
-    private void moved(float x, float y, boolean up) {
+    private boolean moved(float x, float y, boolean up) {
         float distance = (float) sqrt(pow((x - mCircleCenterX), 2) + pow((y - mCircleCenterY), 2));
         if (distance < mOuterRadius + mAdjustmentFactor && distance > mInnerRadius - mAdjustmentFactor && !up) {
             mIsPressed = true;
@@ -633,14 +630,16 @@ public final class CircularClockSeekBar extends View {
             int newDelta;
             if ((newDelta = getDelta(oldDegrees, newDegrees)) == 0) {
                 // no need to invalidate or set new values nothing changed
-                return;
+                return false;
             }
             mDeltaProgress += newDelta;
             setAngle(newDegrees);
             invalidate();
+            return true;
         } else {
             mIsPressed = false;
             invalidate();
+            return false;
         }
     }
 
