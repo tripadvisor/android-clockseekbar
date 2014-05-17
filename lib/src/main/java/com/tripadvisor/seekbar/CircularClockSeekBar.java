@@ -234,8 +234,9 @@ public final class CircularClockSeekBar extends View {
     public void animateToDelta(int fromDelta, int toDelta) {
         final int delta = abs(toDelta - fromDelta);
         final int oldDegrees = round(mAngle);
-        final int newDegrees = round(mAngle + (toDelta - fromDelta));
-        startAnimation(delta, oldDegrees, newDegrees, true, false);
+        final int newDegrees = round((mAngle + (toDelta - fromDelta)) % 360);
+        mDeltaProgress = toDelta;
+        startAnimation(delta, oldDegrees, newDegrees, true, true);
     }
 
     private void startAnimation(final int delta, final int oldDegrees, final int newDegrees, final boolean animate, boolean isDeltaPreComputed) {
