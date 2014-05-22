@@ -196,4 +196,12 @@ public class ClockView extends LinearLayout {
             };
         }
     }
+
+    public DateTime getCurrentValidTime() {
+        return mCurrentValidTime;
+    }
+
+    public DateTime getNewCurrentTime() {
+        return mNewCurrentTime;
+    }
 }
