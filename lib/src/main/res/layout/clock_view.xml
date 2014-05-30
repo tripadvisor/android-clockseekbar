@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/time_text_panel"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
 
         <LinearLayout
             android:id="@+id/time_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:gravity="center_horizontal"
             android:orientation="horizontal">
 
             <com.tripadvisor.seekbar.LetterSpacingTextView
@@ -32,6 +33,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/disabled_gray"
                 android:textSize="36sp"
+                android:singleLine="false"
+                android:maxLines="3"
                 custom:fontType="light" />
         </LinearLayout>
 
@@ -48,14 +51,17 @@
             android:textColor="@color/orange"
             android:textSize="15dip"
             android:visibility="gone"
+            android:singleLine="false"
+            android:maxLines="3"
             custom:fontType="regular" />
     </RelativeLayout>
 
     <com.tripadvisor.seekbar.CircularClockSeekBar
         android:id="@+id/clock_seek_bar"
-        android:layout_width="175dp"
-        android:layout_height="175dp"
+        android:layout_below="@id/time_text_panel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1" />
 
-</LinearLayout>
+</RelativeLayout>

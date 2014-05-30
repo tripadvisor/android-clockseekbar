@@ -112,8 +112,6 @@ public final class CircularClockSeekBar extends View {
     private boolean mFromUser;
 
     private Context mContext;
-    private int mWidth;
-    private int mHeight;
     private float mInnerRadius;
     private float mOuterRadius;
     private float mCircleCenterX;
@@ -124,8 +122,14 @@ public final class CircularClockSeekBar extends View {
     private Bitmap mScrubberNormal;
     private Bitmap mScrubberPressed;
     private Paint mCirclePaint;
+
+    private Drawable mDial;
     private Drawable mHourHand;
     private Drawable mMinuteHand;
+
+    private int mDialWidth;
+    private int mDialHeight;
+
     private RotateAnimationTask mRotateAnimationTask;
     private DecelerateInterpolator mInterpolator;
 
@@ -192,8 +196,10 @@ public final class CircularClockSeekBar extends View {
             attributes.recycle();
         }
 
-        mWidth = getWidth();
-        mHeight = getHeight();
+        mDial = r.getDrawable(R.drawable.clock_dial);
+
+        mDialWidth = mDial.getIntrinsicWidth();
+        mDialHeight = mDial.getIntrinsicHeight();
     }
 
     public void roundToNearestDegree(int degree) {
@@ -372,7 +378,6 @@ public final class CircularClockSeekBar extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         int widthSize = MeasureSpec.getSize(widthMeasureSpec);
@@ -382,18 +387,18 @@ public final class CircularClockSeekBar extends View {
         float hScale = 1.0f;
         float vScale = 1.0f;
 
-        if (widthMode != MeasureSpec.UNSPECIFIED && widthSize < mWidth) {
-            hScale = widthSize / (float) mWidth;
+        if (widthMode != MeasureSpec.UNSPECIFIED && widthSize < mDialWidth) {
+            hScale = widthSize / (float) mDialWidth;
         }
 
-        if (heightMode != MeasureSpec.UNSPECIFIED && heightSize < mHeight) {
-            vScale = heightSize / (float) mHeight;
+        if (heightMode != MeasureSpec.UNSPECIFIED && heightSize < mDialHeight) {
+            vScale = heightSize / (float) mDialHeight;
         }
 
         float scale = min(hScale, vScale);
 
-        setMeasuredDimension(resolveSize((int) (mWidth * scale), widthMeasureSpec),
-                resolveSize((int) (mHeight * scale), heightMeasureSpec));
+        setMeasuredDimension(resolveSize((int) (mDialWidth * scale), widthMeasureSpec),
+                resolveSize((int) (mDialHeight * scale), heightMeasureSpec));
 
         int width = getMeasuredWidth();// Get View Width
         int height = getMeasuredHeight();// Get View Height
@@ -425,6 +430,8 @@ public final class CircularClockSeekBar extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
         boolean changed = mChanged;
         if (changed) {
             mChanged = false;
@@ -436,8 +443,9 @@ public final class CircularClockSeekBar extends View {
         int x = availableWidth / 2;
         int y = availableHeight / 2;
 
-        int w = getWidth();
-        int h = getHeight();
+        final Drawable dial = mDial;
+        int w = dial.getIntrinsicWidth();
+        int h = dial.getIntrinsicHeight();
 
         boolean scaled = false;
 
@@ -448,12 +456,14 @@ public final class CircularClockSeekBar extends View {
             canvas.save();
             canvas.scale(scale, scale, x, y);
         }
+
+        if (changed) {
+            dial.setBounds(x - (w / 2), y - (h / 2), x + (w / 2), y + (h / 2));
+        }
         canvas.save();
 
-        if (mIsProgressSetViaApi) {
-            markPointX = mCircleCenterX - (float) (mOuterRadius * cos(toRadians((mProgress * 360.0d / mMaxProgress) + 90.0d)));
-            markPointY = mCircleCenterY - (float) (mOuterRadius * sin(toRadians((mProgress * 360.0d / mMaxProgress) + 90.0d)));
-        }
+        markPointX = mCircleCenterX - (float) (mOuterRadius * cos(toRadians((mProgress * 360.0d / mMaxProgress) + 90.0d)));
+        markPointY = mCircleCenterY - (float) (mOuterRadius * sin(toRadians((mProgress * 360.0d / mMaxProgress) + 90.0d)));
         mMarkerPositionX = getXFromAngle();
         mMarkerPositionY = getYFromAngle();
 
@@ -485,8 +495,6 @@ public final class CircularClockSeekBar extends View {
         if (scaled) {
             canvas.restore();
         }
-
-        super.onDraw(canvas);
     }
 
     /**
