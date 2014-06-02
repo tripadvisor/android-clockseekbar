@@ -40,7 +40,7 @@ public final class CircularClockSeekBar extends View {
     public static final int NANO_SECS = 1000000;
     public static final int TOTAL_DEGREES_INT = 360;
     public static final double TOTAL_DEGREES_DOUBLE = 360.0;
-    public static final int MINUTE_HAND_OFFSET = 25;
+    public static final int HAND_OFFSET = 25;
 
     /**
      * The listener to listen for changes
@@ -475,7 +475,7 @@ public final class CircularClockSeekBar extends View {
         final Drawable hourHand = mHourHand;
         if (changed) {
             w = hourHand.getIntrinsicWidth();
-            h = hourHand.getIntrinsicHeight();
+            h = (int) (hourHand.getIntrinsicHeight() - (HAND_OFFSET * getResources().getDisplayMetrics().density));
             hourHand.setBounds(x - (w / 2), y - (h / 2), x + (w / 2), y + (h / 2));
         }
         hourHand.draw(canvas);
@@ -487,7 +487,7 @@ public final class CircularClockSeekBar extends View {
         final Drawable minuteHand = mMinuteHand;
         if (changed) {
             w = minuteHand.getIntrinsicWidth();
-            h = (int) (minuteHand.getIntrinsicHeight() - (MINUTE_HAND_OFFSET * getResources().getDisplayMetrics().density));
+            h = (int) (minuteHand.getIntrinsicHeight() - (HAND_OFFSET * getResources().getDisplayMetrics().density));
             minuteHand.setBounds(x - (w / 2), y - (h / 2), x + (w / 2), y + (h / 2));
         }
         minuteHand.draw(canvas);
