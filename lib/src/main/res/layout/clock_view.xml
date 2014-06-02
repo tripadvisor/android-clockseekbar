@@ -3,8 +3,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:id="@+id/time_text_panel"
@@ -33,6 +32,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/disabled_gray"
                 android:textSize="36sp"
+                android:maxWidth="60dp"
                 android:singleLine="false"
                 android:maxLines="3"
                 custom:fontType="light" />
@@ -61,7 +61,6 @@
         android:layout_below="@id/time_text_panel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="1" />
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
