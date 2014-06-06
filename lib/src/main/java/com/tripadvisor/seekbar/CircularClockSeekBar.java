@@ -296,7 +296,9 @@ public final class CircularClockSeekBar extends View {
             milliseconds = interpolation / NANO_SECS;
             interpolation = interpolation % NANO_SECS;
         }
-        Thread.sleep(milliseconds, interpolation);
+        try {
+            Thread.sleep(milliseconds, interpolation);
+        }catch (IllegalArgumentException ignore){}
     }
 
     private abstract class RotateAnimationTask extends AsyncTask<Void, Integer, Void> {
