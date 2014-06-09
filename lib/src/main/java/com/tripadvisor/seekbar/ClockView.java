@@ -20,7 +20,6 @@ import java.util.Locale;
 import static com.tripadvisor.seekbar.CircularClockSeekBar.ClockRangeStatus.DIFFERENT_DAY_OF_WEEK;
 import static com.tripadvisor.seekbar.CircularClockSeekBar.ClockRangeStatus.INVALID_RANGE;
 import static com.tripadvisor.seekbar.CircularClockSeekBar.ClockRangeStatus.VALID_RANGE;
-import static com.tripadvisor.seekbar.util.Utils.FontType.BOLD;
 import static com.tripadvisor.seekbar.util.Utils.FontType.REGULAR;
 import static com.tripadvisor.seekbar.util.Utils.SIMPLE_DATE_FORMAT_AM_PM;
 import static com.tripadvisor.seekbar.util.Utils.SIMPLE_DATE_FORMAT_HOURS;
@@ -54,7 +53,6 @@ public class ClockView extends LinearLayout {
         mTimeMeridianText = (LetterSpacingTextView) view.findViewById(R.id.time_meredian_text_view);
         mTimeWeekDayText = (RobotoTextView) view.findViewById(R.id.time_week_day_text);
         if (!isInEditMode()) {
-            mTimeText.setTypeface(Utils.getRobotoTypeface(context, BOLD));
             mTimeText.setLetterSpacing(LETTER_SPACING);
             mTimeMeridianText.setTypeface(Utils.getRobotoTypeface(context, REGULAR));
             mTimeMeridianText.setLetterSpacing(LETTER_SPACING);

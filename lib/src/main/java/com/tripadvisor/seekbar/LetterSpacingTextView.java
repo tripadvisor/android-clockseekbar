@@ -4,7 +4,6 @@ import android.content.Context;
 import android.text.SpannableString;
 import android.text.style.ScaleXSpan;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
 import static android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE;
 
@@ -15,22 +14,14 @@ import static android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE;
  * @author Pedro Barros (pedrobarros.dev at gmail.com)
  * @since May 7, 2013
  */
-public class LetterSpacingTextView extends TextView {
+public class LetterSpacingTextView extends RobotoTextView {
 
     private float letterSpacing = 0.0F;
     private CharSequence originalText = "";
 
 
-    public LetterSpacingTextView(Context context) {
-        super(context);
-    }
-
     public LetterSpacingTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-    }
-
-    public LetterSpacingTextView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
     }
 
     public float getLetterSpacing() {
