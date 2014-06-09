@@ -473,17 +473,6 @@ public final class CircularClockSeekBar extends View {
         canvas.drawCircle(mCircleCenterX, mCircleCenterY, mOuterRadius, mCirclePaint);
         drawMarkerAtProgress(canvas);
 
-        canvas.rotate(mProgress * 360.0f / mMaxProgress, x, y);
-        final Drawable hourHand = mHourHand;
-        if (changed) {
-            w = hourHand.getIntrinsicWidth();
-            h = (int) (hourHand.getIntrinsicHeight() - (HAND_OFFSET * getResources().getDisplayMetrics().density));
-            hourHand.setBounds(x - (w / 2), y - (h / 2), x + (w / 2), y + (h / 2));
-        }
-        hourHand.draw(canvas);
-        canvas.restore();
-
-        canvas.save();
         canvas.rotate(0, x, y);
 
         final Drawable minuteHand = mMinuteHand;
@@ -494,6 +483,18 @@ public final class CircularClockSeekBar extends View {
         }
         minuteHand.draw(canvas);
         canvas.restore();
+        canvas.save();
+
+        canvas.rotate(mProgress * 360.0f / mMaxProgress, x, y);
+        final Drawable hourHand = mHourHand;
+        if (changed) {
+            w = hourHand.getIntrinsicWidth();
+            h = (int) (hourHand.getIntrinsicHeight() - (HAND_OFFSET * getResources().getDisplayMetrics().density));
+            hourHand.setBounds(x - (w / 2), y - (h / 2), x + (w / 2), y + (h / 2));
+        }
+        hourHand.draw(canvas);
+        canvas.restore();
+        canvas.save();
 
         if (scaled) {
             canvas.restore();
