@@ -12,6 +12,7 @@ buildscript {
 }
 
 apply plugin: 'android-library'
+apply plugin: 'maven'
 
 repositories {
     mavenCentral()
@@ -31,6 +32,22 @@ android {
         release {
             runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+def clockAARFile = file('build/libs/lib.aar')
+artifacts {
+    archives clockAARFile
+}
+// This method should be run while using the TAFlights Mac Pro
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "file:///Users/tamobileflights/Sites/maven/")
+            pom.groupId = 'com.tripadvisor.flights'
+            pom.artifactId = 'android-clockseekbar'
+            pom.version = '0.1.0'
         }
     }
 }
