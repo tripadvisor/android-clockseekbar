@@ -47,7 +47,7 @@ uploadArchives {
             repository(url: "file:///Users/tamobileflights/Sites/maven/")
             pom.groupId = 'com.tripadvisor.flights'
             pom.artifactId = 'android-clockseekbar'
-            pom.version = '0.1.0'
+            pom.version = '0.1.1'
         }
     }
 }
