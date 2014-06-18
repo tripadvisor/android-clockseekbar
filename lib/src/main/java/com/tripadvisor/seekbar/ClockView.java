@@ -127,7 +127,7 @@ public class ClockView extends LinearLayout {
     private void setClockText(DateTime newCurrentTime) {
         if (mIs24HourFormat) {
             mTimeText.setText(SIMPLE_DATE_FORMAT_HOURS.print(newCurrentTime));
-            mTimeMeridianText.setText(R.string.hrs);
+            mTimeMeridianText.setText(R.string.flights_app_short_hrs_cbd);
         } else {
             mTimeText.setText(SIMPLE_DATE_FORMAT_AM_PM.print(newCurrentTime));
             mTimeMeridianText.setText(SIMPLE_DATE_FORMAT_MERIDIAN.print(newCurrentTime).toLowerCase(Locale.US));
