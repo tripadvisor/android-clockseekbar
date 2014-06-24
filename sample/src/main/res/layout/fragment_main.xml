@@ -39,7 +39,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dip"
                 android:maxWidth="60dp"
-                android:text="TO000ooooooo"
+                android:text="TO"
                 android:textAllCaps="true"
                 android:textColor="@color/disabled_gray"
                 android:textSize="13dip" />
@@ -75,7 +75,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dip"
                 android:maxWidth="60dp"
-                android:text="TO000ooooooo"
+                android:text="TO"
                 android:textAllCaps="true"
                 android:textColor="@color/disabled_gray"
                 android:textSize="13dip" />
@@ -111,7 +111,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dip"
                 android:maxWidth="60dp"
-                android:text="TO000ooooooo"
+                android:text="TO"
                 android:textAllCaps="true"
                 android:textColor="@color/disabled_gray"
                 android:textSize="13dip" />

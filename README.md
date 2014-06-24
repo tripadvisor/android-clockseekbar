@@ -102,5 +102,10 @@ User can add `OnSeekBarChangeListener` that has callbacks for various events.
 ```
 
 
-Source: http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/1.6_r2/android/widget/AnalogClock.java
-and https://github.com/RaghavSood/AndroidCircularSeekBar
+Source: 
+
+http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/1.6_r2/android/widget/AnalogClock.java
+
+and 
+
+https://github.com/RaghavSood/AndroidCircularSeekBar
