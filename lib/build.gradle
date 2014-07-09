@@ -7,11 +7,11 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.11.+'
+        classpath 'com.android.tools.build:gradle:0.12.+'
     }
 }
 
-apply plugin: 'android-library'
+apply plugin: 'com.android.library'
 apply plugin: 'maven'
 
 repositories {
@@ -47,7 +47,7 @@ uploadArchives {
             repository(url: "file:///Users/tamobileflights/Sites/maven/")
             pom.groupId = 'com.tripadvisor.flights'
             pom.artifactId = 'android-clockseekbar'
-            pom.version = '0.1.1'
+            pom.version = '0.1.2'
         }
     }
 }
