@@ -4,7 +4,7 @@ TripAdvisor Android ClockSeekbar
 
 Tested against API level 14+.
 
-Standalone Android widget for picking a single date or range from a calendar view.
+Standalone Android widget for picking a single time or range from a clock view.
 
 ![Screenshot](ScreenShot.png)
 
