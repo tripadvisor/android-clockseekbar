@@ -19,6 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 import static android.graphics.Paint.Style.STROKE;
 import static android.os.AsyncTask.Status.RUNNING;
+import static com.tripadvisor.seekbar.util.Utils.getDelta;
 import static java.lang.Math.PI;
 import static java.lang.Math.abs;
 import static java.lang.Math.atan2;
@@ -298,7 +299,8 @@ public final class CircularClockSeekBar extends View {
         }
         try {
             Thread.sleep(milliseconds, interpolation);
-        }catch (IllegalArgumentException ignore){}
+        } catch (IllegalArgumentException ignore) {
+        }
     }
 
     private abstract class RotateAnimationTask extends AsyncTask<Void, Integer, Void> {
@@ -340,7 +342,7 @@ public final class CircularClockSeekBar extends View {
             } else {
                 mListener.onAnimationComplete(CircularClockSeekBar.this);
             }
-            if (!mAnimate){
+            if (!mAnimate) {
                 mIsProgressSetViaApi = true;
             }
             invalidate();
@@ -738,52 +740,12 @@ public final class CircularClockSeekBar extends View {
         mListener = listener;
     }
 
-
-    public static boolean shouldMoveClockwise(int oldValue, int newValue) {
-        int dist = abs(newValue - oldValue);
-        int direction = oldValue < newValue ? 1 : -1;
-        direction = dist < TOTAL_DEGREES_INT / 2 ? direction : -direction;
-        return direction == 1;
-    }
-
-    public static int getDistanceTo(int oldValue, int newValue) {
-        int totalDegrees = TOTAL_DEGREES_INT;
-        boolean isClockWise = shouldMoveClockwise(oldValue, newValue);
-        int dist = (newValue - oldValue) % totalDegrees;
-
-        if (isClockWise) {
-            if (abs(dist) > totalDegrees / 2) {
-                dist = (totalDegrees - oldValue) + newValue;
-            } else {
-                dist = newValue - oldValue;
-            }
-        } else {
-            if (abs(dist) > totalDegrees / 2) {
-                dist = totalDegrees - (newValue - oldValue);
-                dist = -dist;
-            } else {
-                dist = newValue - oldValue;
-            }
-        }
-        return dist;
-    }
-
-    public static int getDelta(int oldDegrees, int newDegrees) {
-        if ((oldDegrees == TOTAL_DEGREES_INT && newDegrees == 0) || (newDegrees == TOTAL_DEGREES_INT && oldDegrees == 0)
-                || (oldDegrees == 0 && newDegrees == 0) ) {
-            // dont worry about delta for this condition as this basically means they are same.
-            // we have this granular values when user touches/scrolls
-            return 0;
-        }
-        return getDistanceTo(oldDegrees, newDegrees);
-    }
-
-    public void reset(){
+    public void reset() {
         mDeltaProgress = 0;
         mAngle = 0;
         mProgress = 0;
         mIsProgressSetViaApi = true;
-        if (mRotateAnimationTask!=null) {
+        if (mRotateAnimationTask != null) {
             mRotateAnimationTask.cancel(true);
             mRotateAnimationTask = null;
         }

@@ -1,16 +1,13 @@
-package com.tripadvisor.seekbar.tests.unit;
+package com.tripadvisor.seekbar.util;
 
 import android.test.InstrumentationTestCase;
 
-import static com.tripadvisor.seekbar.CircularClockSeekBar.getDelta;
-import static com.tripadvisor.seekbar.CircularClockSeekBar.getDistanceTo;
-import static com.tripadvisor.seekbar.CircularClockSeekBar.shouldMoveClockwise;
+import static com.tripadvisor.seekbar.util.Utils.getDelta;
+import static com.tripadvisor.seekbar.util.Utils.getDistanceTo;
+import static com.tripadvisor.seekbar.util.Utils.shouldMoveClockwise;
 import static org.fest.assertions.api.Assertions.assertThat;
 
-/**
- * Created by ksarmalkar on 4/30/14.
- */
-public class CircularClockSeekBarTest extends InstrumentationTestCase {
+public class UtilsTest extends InstrumentationTestCase {
 
     public void testThatIsClockwiseReturnsCorrectValues() throws Exception {
         assertThat(shouldMoveClockwise(80, 170)).isTrue();
