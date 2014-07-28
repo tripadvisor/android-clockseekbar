@@ -1,3 +1,8 @@
 <component name="CopyrightManager">
-  <settings default="" />
+  <settings default="Open Source">
+    <module2copyright>
+      <element module="Project Files" copyright="Open Source" />
+      <element module="Tests" copyright="Open Source" />
+    </module2copyright>
+  </settings>
 </component>
