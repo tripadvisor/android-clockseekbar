@@ -53,7 +53,7 @@ public class Utils {
 
     public static int getDelta(int oldDegrees, int newDegrees) {
         if ((oldDegrees == CircularClockSeekBar.TOTAL_DEGREES_INT && newDegrees == 0) || (newDegrees == CircularClockSeekBar.TOTAL_DEGREES_INT && oldDegrees == 0)
-                || (oldDegrees == 0 && newDegrees == 0) ) {
+                || (oldDegrees == 0 && newDegrees == 0)) {
             // dont worry about delta for this condition as this basically means they are same.
             // we have this granular values when user touches/scrolls
             return 0;

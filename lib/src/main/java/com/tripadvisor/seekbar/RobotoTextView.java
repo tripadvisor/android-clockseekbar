@@ -8,7 +8,11 @@ import android.widget.TextView;
 
 import com.tripadvisor.seekbar.util.Utils;
 
-import static com.tripadvisor.seekbar.util.Utils.FontType.*;
+import static com.tripadvisor.seekbar.util.Utils.FontType.BOLD;
+import static com.tripadvisor.seekbar.util.Utils.FontType.LIGHT;
+import static com.tripadvisor.seekbar.util.Utils.FontType.MEDIUM;
+import static com.tripadvisor.seekbar.util.Utils.FontType.REGULAR;
+import static com.tripadvisor.seekbar.util.Utils.FontType.values;
 import static com.tripadvisor.seekbar.util.Utils.getRobotoTypeface;
 
 

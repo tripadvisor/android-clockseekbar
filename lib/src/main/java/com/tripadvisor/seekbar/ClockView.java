@@ -100,15 +100,15 @@ public class ClockView extends LinearLayout {
         });
     }
 
-    public interface ClockTimeUpdateListener{
+    public interface ClockTimeUpdateListener {
         public void onClockTimeUpdate(ClockView clockView, DateTime currentTime);
     }
 
-    public void setNewCurrentTime(DateTime newCurrentTime){
+    public void setNewCurrentTime(DateTime newCurrentTime) {
         if (mValidTimeInterval != null && newCurrentTime != null && mNewCurrentTime != null
                 && mValidTimeInterval.contains(newCurrentTime)) {
             int diffInMinutes = Minutes.minutesBetween(mNewCurrentTime, newCurrentTime).getMinutes();
-            mCircularClockSeekBar.moveToDelta(mCurrentValidProgressDelta, diffInMinutes/2);
+            mCircularClockSeekBar.moveToDelta(mCurrentValidProgressDelta, diffInMinutes / 2);
             setClockText(mCurrentValidTime);
         }
     }
@@ -185,8 +185,8 @@ public class ClockView extends LinearLayout {
         mClockTimeUpdateListener = clockTimeUpdateListener;
     }
 
-    public void removeClockTimeUpdateListener(ClockTimeUpdateListener clockTimeUpdateListener){
-        if (mClockTimeUpdateListener.equals(clockTimeUpdateListener)){
+    public void removeClockTimeUpdateListener(ClockTimeUpdateListener clockTimeUpdateListener) {
+        if (mClockTimeUpdateListener.equals(clockTimeUpdateListener)) {
             mClockTimeUpdateListener = new ClockTimeUpdateListener() {
                 @Override
                 public void onClockTimeUpdate(ClockView clockView, DateTime currentTime) {
