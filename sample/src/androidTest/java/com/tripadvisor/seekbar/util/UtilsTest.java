@@ -44,11 +44,11 @@ public class UtilsTest extends InstrumentationTestCase {
     }
 
     public void testThatCalculateNewDeltaReturnCorrectValues() throws Exception {
-        assertThat(getDelta(0, 49)).isEqualTo(0);
-        assertThat(getDelta(40, 0)).isEqualTo(0);
-        assertThat(getDelta(0, 1)).isEqualTo(0);
-        assertThat(getDelta(1, 0)).isEqualTo(0);
-        assertThat(getDelta(0, 99)).isEqualTo(0);
+        assertThat(getDelta(0, 49)).isEqualTo(49);
+        assertThat(getDelta(40, 0)).isEqualTo(-40);
+        assertThat(getDelta(0, 1)).isEqualTo(1);
+        assertThat(getDelta(1, 0)).isEqualTo(-1);
+        assertThat(getDelta(0, 99)).isEqualTo(99);
         assertThat(getDelta(80, 170)).isEqualTo(90);
         assertThat(getDelta(170, 80)).isEqualTo(-90);
         assertThat(getDelta(358, 3)).isEqualTo(5);
