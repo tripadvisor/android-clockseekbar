@@ -101,11 +101,26 @@ User can add `OnSeekBarChangeListener` that has callbacks for various events.
     }
 ```
 
+License
+--------
 
-Reference Source: 
+    Copyright 2014 TripAdvisor, Inc.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+Inspiration
+-----------
 
 http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/1.6_r2/android/widget/AnalogClock.java
-
-and 
 
 https://github.com/RaghavSood/AndroidCircularSeekBar
