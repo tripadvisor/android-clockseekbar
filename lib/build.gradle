@@ -40,14 +40,23 @@ def clockAARFile = file('build/libs/lib.aar')
 artifacts {
     archives clockAARFile
 }
-// This method should be run while using the TAFlights Mac Pro
+
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: "file:///Users/tamobileflights/Sites/maven/")
-            pom.groupId = 'com.tripadvisor.flights'
-            pom.artifactId = 'android-clockseekbar'
-            pom.version = '0.1.2'
+            repository(url: System.getenv('NEXUS_RELEASE_URL')){
+                authentication(userName: nexusUsername, password: System.getProperty('nexusPassword'))
+            }
+            snapshotRepository(url: System.getenv('NEXUS_SNAPSHOT_URL')){
+                authentication(userName: nexusUsername, password: System.getProperty('nexusPassword'))
+            }
+            pom.project {
+                groupId 'com.tripadvisor.flights'
+                artifactId 'android-clockseekbar'
+                name 'Android Clock Seekbar'
+                packaging 'aar'
+                version '0.1.3'
+            }
         }
     }
 }
