@@ -87,7 +87,7 @@ uploadArchives {
                 artifactId 'android-clockseekbar'
                 name 'Android Clock Seekbar'
                 packaging 'aar'
-                version '0.1.3'
+                version '1.0.0'
             }
         }
     }
