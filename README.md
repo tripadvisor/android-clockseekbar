@@ -1,6 +1,6 @@
 TripAdvisor Android ClockSeekbar
 ==========================
-
+[![Build Status](https://travis-ci.org/tripadvisor/android-clockseekbar.svg?branch=master)](https://travis-ci.org/tripadvisor/android-clockseekbar.svg)
 
 Tested against API level 14+.
 
