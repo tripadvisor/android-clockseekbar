@@ -7,7 +7,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.12.+'
+        classpath 'com.android.tools.build:gradle:0.12.2'
     }
 }
 
@@ -33,6 +33,38 @@ android {
             runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
+    }
+
+    lintOptions {
+        // if true, stop the gradle build if errors are found
+        abortOnError true
+        // if true, check all issues, including those that are off by default
+        checkAllWarnings true
+        // turn on the given issue id's
+        enable 'HardcodedText','ExtraText','StringFormatInvalid','StringFormatCount',
+                'StringFormatMatches','DefaultLocale','ExtraTranslation','MissingTranslation',
+                'MissingQuantity', 'UnusedQuantity', 'RtlHardcoded', 'RtlSymmetry', 'RtlCompat',
+                'GradleDependency', 'ContentDescription'
+        // turn off checking the given issue id's
+        disable 'UnusedIds', 'SelectableText', 'IconExpectedSize', 'SetJavaScriptEnabled',
+                'SpUsage', 'TypographyQuotes', 'IconColors', 'ClickableViewAccessibility',
+                'OldTargetApi', 'MisplacedStatement', 'Overdraw'
+        // if true, show all locations for an error, do not truncate lists, etc.
+        showAll true
+        // if true, generate a text report of issues (false by default)
+        textReport true
+        // location to write the output; can be a file or 'stdout'
+        textOutput 'stdout'
+        // set to true to have all release builds run lint on issues with severity=fatal
+        // and abort the build (controlled by abortOnError above) if fatal issues are found
+        checkReleaseBuilds true
+        // Set the severity of the given issues to fatal (which means they will be
+        // checked during release builds (even if the lint target is not included)
+        fatal 'NewApi', 'InlineApi'
+        // Set the severity of the given issues to error
+        error 'Wakelock', 'TextViewEdits', 'HardcodedText'
+        // Set the severity of the given issues to warning
+        warning 'ResourceAsColor'
     }
 }
 
@@ -63,6 +95,6 @@ uploadArchives {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.intellij:annotations:+@jar'
+    compile 'com.intellij:annotations:12.0@jar'
     compile 'joda-time:joda-time:2.3'
 }

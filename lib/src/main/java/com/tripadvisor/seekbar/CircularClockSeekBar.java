@@ -605,6 +605,7 @@ public final class CircularClockSeekBar extends View {
 
     @Override
     public boolean onTouchEvent(@NotNull MotionEvent event) {
+        performClick();
         if (mRotateAnimationTask != null && mRotateAnimationTask.getStatus() == RUNNING) {
             return true;
         }
