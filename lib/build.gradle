@@ -77,10 +77,11 @@ uploadArchives {
     repositories {
         mavenDeployer {
             repository(url: System.getenv('NEXUS_RELEASE_URL')){
-                authentication(userName: nexusUsername, password: System.getProperty('nexusPassword'))
+                authentication(userName: System.getProperty('nexusUsername'),
+                        password: System.getProperty('nexusPassword'))
             }
             snapshotRepository(url: System.getenv('NEXUS_SNAPSHOT_URL')){
-                authentication(userName: nexusUsername, password: System.getProperty('nexusPassword'))
+                authentication(userName: System.getProperty('nexusUsername'), password: System.getProperty('nexusPassword'))
             }
             pom.project {
                 groupId 'com.tripadvisor.flights'
