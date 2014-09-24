@@ -1,12 +1,9 @@
 <manifest package="com.tripadvisor.seekbar"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
-        android:allowBackup="false"
         android:icon="@drawable/ic_launcher"
-        android:label="Android-ClockSeekbar"
-        tools:replace="android:allowBackup">
+        android:label="Android-ClockSeekbar">
 
     </application>
 
