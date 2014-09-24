@@ -76,19 +76,20 @@ artifacts {
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: System.getenv('NEXUS_RELEASE_URL')){
-                authentication(userName: System.getProperty('nexusUsername'),
-                        password: System.getProperty('nexusPassword'))
+            repository(url: System.getenv('ARTIFACTORY_RELEASE_URL')){
+                authentication(userName: System.getProperty('taUsername'),
+                        password: System.getProperty('taPassword'))
             }
-            snapshotRepository(url: System.getenv('NEXUS_SNAPSHOT_URL')){
-                authentication(userName: System.getProperty('nexusUsername'), password: System.getProperty('nexusPassword'))
+            snapshotRepository(url: System.getenv('ARTIFACTORY_SNAPSHOT_URL')){
+                authentication(userName: System.getProperty('taUsername'),
+                        password: System.getProperty('taPassword'))
             }
             pom.project {
                 groupId 'com.tripadvisor.flights'
                 artifactId 'android-clockseekbar'
                 name 'Android Clock Seekbar'
                 packaging 'aar'
-                version '1.0.0'
+                version '1.0.1'
             }
         }
     }
