@@ -2,8 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
-        android:icon="@drawable/ic_launcher"
-        android:label="Android-ClockSeekbar">
+        android:icon="@drawable/ic_launcher">
 
     </application>
 
