@@ -48,11 +48,17 @@ public class LetterSpacingTextView extends RobotoTextView {
 
     public void setLetterSpacing(float mLetterSpacing) {
         this.letterSpacing = mLetterSpacing;
-        applyLetterSpacing();
+        requestLayout();
+        invalidate();
     }
 
     @Override
     public void setText(CharSequence text, BufferType type) {
+        // Below if block taken from android source code, this ensures we dont have NPE in future.
+        // However note that this was not causing FLT-1507
+        if (text == null) {
+            text = "";
+        }
         originalText = text;
         applyLetterSpacing();
     }
